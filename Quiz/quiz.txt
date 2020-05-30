@@ -1,0 +1,29 @@
+Question: Which one is not a wrapper class?
+1.	Integer	0
+2.	String	1
+3.	Boolean	0
+4.	Void	0
+
+Question: Which one is not a dynamic memory allocation structure?
+1.	ArrayList	0
+2.	HashSet	0
+3.	Arrays	1
+4.	HashMap	0
+
+Question: When we inheritance a ancestor class to a certain class, and if implement exactly same method in child class, what we call this? 
+1.	overload	0
+2.	overcall	0
+3.	overread	0
+4.	override	1
+
+Question: Choose one that is not a characteristic of JAVA programming.
+1.	Encapsulation	0
+2.	Inheritance	1
+3.	Unmanaged	0
+4.	Polymorphism	0
+
+Question: Choose a Access Modifier that most allow to access a thing in a class. Thing means a instance variable or method.
+1.	private	0
+2.	public	1
+3.	default	0
+4.	protected	0
