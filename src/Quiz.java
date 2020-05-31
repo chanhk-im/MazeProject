@@ -47,10 +47,11 @@ public class Quiz {
 		catch(FileNotFoundException e) {System.out.println("File doesn't exist!");}
 	}
 
-	public static boolean playQuiz(int quizIndex) {
+	public static boolean playQuiz() {
 
 		Scanner kb = new Scanner(System.in);
 
+		int quizIndex = showQuiz();
 		int ansIndex;
 
 		do{
