@@ -7,6 +7,13 @@ public class Quiz {
 	private static HashMap<Integer, HashMap<String, Integer>> answerOptionList = new HashMap<Integer, HashMap<String, Integer>>(4);
 	private static ArrayList<Integer> alreadyProvided = new ArrayList<Integer>(); // Save the already provided quiz's index.
 
+	public static void main(String[] ars){
+		setQuiz();
+		for(int i=0;i<10 && isAvailable();i++){
+			playQuiz();
+		}
+	}
+
 	public static void setQuiz() {
 		String fileName = "../Quiz/quiz.txt"; // quiz file's name should be 'quiz.txt'
 		try {
@@ -47,11 +54,20 @@ public class Quiz {
 		catch(FileNotFoundException e) {System.out.println("File doesn't exist!");}
 	}
 
+	public static boolean isAvailable(){
+		if(quizList.size() == alreadyProvided.size()) { // When there is no left quiz to provide.
+			System.out.println("\nNo more left quiz!");
+			return false;
+		}
+		return true;
+	}
+
 	public static boolean playQuiz() {
 
 		Scanner kb = new Scanner(System.in);
 
 		int quizIndex = showQuiz();
+
 		int ansIndex;
 
 		do{
@@ -63,8 +79,6 @@ public class Quiz {
 			}
 			break;
 		} while(true);
-
-		kb.close();
 
 		if(answerCheck(quizIndex, ansIndex)) {
 			System.out.println("\nCongraturation! Correct.");
@@ -78,14 +92,9 @@ public class Quiz {
 
 	}
 
-	public static int showQuiz() {
+	private static int showQuiz() {
 
-		int quizIndex = generateRandomIndex();
-
-		if(quizList.size() == alreadyProvided.size()) { // When there is no left quiz to provide.
-			System.out.println("No more left quiz!");
-			return -1;
-		}
+		int quizIndex = generateRandomIndex(); // if user calls only the showQuiz in the program, it could fall in infinite loop because of the algoritm of generateRandomIndex. So, the showQuiz should be private.
 
 		HashMap<String, Integer> choiceOption = answerOptionList.get(quizIndex);
 
@@ -102,7 +111,7 @@ public class Quiz {
 		return quizIndex;
 	}
 
-	public static int generateRandomIndex() {
+	private static int generateRandomIndex() {
 
 		boolean isProv;
 		int index;
@@ -116,7 +125,7 @@ public class Quiz {
 		return index;
 	}
 
-	public static boolean isProvided(int index) {
+	private static boolean isProvided(int index) {
 		for(int i=0; i<alreadyProvided.size(); i++) {
 			if(index == alreadyProvided.get(i).intValue())
 				return true;
@@ -124,7 +133,7 @@ public class Quiz {
 		return false;
 	}
 
-	public static boolean answerCheck(int quizIndex, int ansIndex) {
+	private static boolean answerCheck(int quizIndex, int ansIndex) {
 
 		HashMap<String, Integer> givenAnswer = answerOptionList.get(quizIndex);
 
@@ -142,7 +151,7 @@ public class Quiz {
 		return false;
 	}
 
-	public static int findAnswer(int quizIndex) {
+	private static int findAnswer(int quizIndex) {
 
 		HashMap<String, Integer> givenAnswer = answerOptionList.get(quizIndex);
 		// String answer = "There is no answer in this quiz! Error."; // For Exception case.
