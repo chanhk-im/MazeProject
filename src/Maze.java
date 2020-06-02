@@ -14,7 +14,7 @@ public class Maze {
 
     public Maze(String fileName) {
         player = new Player(0, 0);
-        
+
         this.fileName = "../mazes/" + fileName;
         try {
             fileStream = new Scanner(new File(this.fileName));
@@ -93,5 +93,24 @@ public class Maze {
             return true;
         }
         return false;
+    }
+
+// added for playing subgame.
+    public void occurSubgame(){
+
+        // Sub-game ouccrs only when the point of player is same with "2" in maze text file. isSubgmae method checks that.
+        if(!isSubgame(player, maze)){
+            return;
+        }
+
+        System.out.println("Sub-game event occurs!!!");
+
+        if(playSubgame()){
+            System.out.println("Your ~~~~ is increased by one");
+            System.out.println("Add some codes for increasing characteristic, here");
+        }
+        else{
+            // other cases....
+        }
     }
 }

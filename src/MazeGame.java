@@ -12,6 +12,7 @@ public class MazeGame {
 
             switch (menu) {
             case 1:
+                Quiz.setQuiz(); // to set the list of quiz game (sub game)
                 startMaze();
                 break;
             default:
@@ -42,7 +43,9 @@ public class MazeGame {
 
             if (!maze.movePlayer(c)) {
                 System.out.println("!You cannot go there!");
+                continue;
             }
+            maze.occurSubgame(); // added for playing sub game.
         }
     }
 
