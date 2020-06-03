@@ -6,9 +6,9 @@ public class SubGame{
 	    int choose = chooseGameRandomly();
 		switch(choose){
 			case 1:
-				return // Rock-Scissor-Paper game play
+				return Rps.playRps();
 			case 2:
-				return // Up donw game play
+				return Updown.playUpdown();
 			case 3:
 				return Quiz.playQuiz();
 		}
