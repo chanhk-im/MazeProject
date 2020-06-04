@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -39,13 +40,20 @@ public class Maze {
     }
 
     public void printMaze() {
+        System.out.println();
+        for (int i = 0; i < xLen + 2; i++) {
+            System.out.print("= ");
+        }
+        System.out.println();
         for (int i = 0; i < yLen; i++) {
+            System.out.print("| ");
             for (int j = 0; j < xLen; j++) {
                 if (player.getY() == i && player.getX() == j) {
                     System.out.print("Y ");
                     continue;
                 }
                 if (player.getY() - player.getVision() <= i && i <= player.getY() + player.getVision()) {
+                    
                     if (player.getX() - player.getVision() <= j && j <= player.getX() + player.getVision()) {
                         System.out.print(((maze[i][j] == 0) ? 0 : 1) + " ");
                         continue;
@@ -53,9 +61,15 @@ public class Maze {
                 }
                 System.out.print("? ");
             }
-            System.out.println();
+            System.out.println("|");
         }
-        System.out.println("\n( " + player.getX() + ", " + player.getY() + " )");
+        for (int i = 0; i < xLen + 2; i++) {
+            System.out.print("= ");
+        }
+
+        System.out.println();
+        System.out.println("\n[Information] Your position: ( " + player.getX() + ", " + player.getY() + " )");
+        System.out.println("[Information] Your remained life: " + player.getLife() + " / " + player.getMaxLife());
     }
 
     public boolean movePlayer(String c) {
@@ -88,8 +102,15 @@ public class Maze {
         return false;
     }
 
-    public boolean check_victory() {
+    public boolean checkVictory() {
         if (player.getY() == yLen - 1 && player.getX() == xLen - 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkDefeat() {
+        if (player.getLife() < 0) {
             return true;
         }
         return false;
@@ -116,7 +137,21 @@ public class Maze {
         System.out.println("Sub-game event occurs!!!");
 
         if(SubGame.playSubgame()){
-            System.out.println("Your ~~~~ is increased by one");
+            Random generator = new Random();
+            int index = generator.nextInt(2) + 1;
+            switch (index) {        // [chanhk-im]: case 1->life up, case 2->vision up
+                case 1:
+                    player.lifeUp(1);
+                    System.out.println("Your life is increased by one");
+                    break;
+                case 2:
+                    player.visionUp(1);
+                    System.out.println("Your vision is increased by one");
+                    break;
+                default:
+                    break;
+            }
+            // System.out.println("Your ~~~~ is increased by one");
             System.out.println("Add some codes for increasing characteristic, here");
         }
         else{

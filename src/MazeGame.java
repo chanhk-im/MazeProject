@@ -33,16 +33,20 @@ public class MazeGame {
 
         kb.nextLine();
         while (true) {
-            if (maze.check_victory()) {
-                System.out.println("You win!!");
+            if (maze.checkVictory()) {
+                System.out.println("[Information] You win!!");
+                break;
+            }
+            if (maze.checkDefeat()) {
+                System.out.println("[Information] You lose!!");
                 break;
             }
             maze.printMaze();
-            System.out.print("Where to go?(w a s d) > ");
+            System.out.print("[Question] Where to go?(w a s d) > ");
             c = kb.nextLine();
 
             if (!maze.movePlayer(c)) {
-                System.out.println("!You cannot go there!");
+                System.out.println("[Information] You cannot go there!");
                 continue;
             }
             maze.occurSubgame(); // added for playing sub game.
