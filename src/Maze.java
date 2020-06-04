@@ -47,7 +47,7 @@ public class Maze {
                 }
                 if (player.getY() - player.getVision() <= i && i <= player.getY() + player.getVision()) {
                     if (player.getX() - player.getVision() <= j && j <= player.getX() + player.getVision()) {
-                        System.out.print(maze[i][j] + " ");
+                        System.out.print(((maze[i][j] == 0) ? 0 : 1) + " ");
                         continue;
                     }
                 }
@@ -60,27 +60,27 @@ public class Maze {
 
     public boolean movePlayer(String c) {
         if (c.equals("w")) {
-            if (player.getY() > 0 && maze[player.getY() - 1][player.getX()] == 1) {
+            if (player.getY() > 0 && maze[player.getY() - 1][player.getX()] >= 1) {
                 player.moveUp();
                 return true;
             }
         }
         if (c.equals("a")) {
-            if (player.getX() > 0 && maze[player.getY()][player.getX() - 1] == 1) {
+            if (player.getX() > 0 && maze[player.getY()][player.getX() - 1] >= 1) {
                 player.moveLeft();
                 return true;
             }
 
         }
         if (c.equals("s")) {
-            if (player.getY() < yLen && maze[player.getY() + 1][player.getX()] == 1) {
+            if (player.getY() < yLen && maze[player.getY() + 1][player.getX()] >= 1) {
                 player.moveDown();
                 return true;
             }
 
         }
         if (c.equals("d")) {
-            if (player.getX() < xLen && maze[player.getY()][player.getX() + 1] == 1) {
+            if (player.getX() < xLen && maze[player.getY()][player.getX() + 1] >= 1) {
                 player.moveRight();
                 return true;
             }
@@ -95,11 +95,21 @@ public class Maze {
         return false;
     }
 
+    public boolean isSubgame() {
+        int pX = player.getX();
+        int pY = player.getY();
+
+        if (maze[pX][pY] == 2) {
+            return true;
+        }
+        return false;
+    }
+
 // added for playing subgame.
     public void occurSubgame(){
 
         // Sub-game ouccrs only when the point of player is same with "2" in maze text file. isSubgmae method checks that.
-        if(!SubGame.isSubgame(player, maze)){
+        if(!isSubgame()){
             return;
         }
 
@@ -112,5 +122,6 @@ public class Maze {
         else{
             // other cases....
         }
+        maze[player.getX()][player.getY()] = 1;
     }
 }
