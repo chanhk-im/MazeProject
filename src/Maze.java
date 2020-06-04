@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.Random;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 
 public class Maze {
     private String fileName;
@@ -20,11 +22,25 @@ public class Maze {
         try {
             fileStream = new Scanner(new File(this.fileName));
         } catch (FileNotFoundException e) {
-            System.out.println("Error opening file " + fileName);
+            System.out.println("[Error] Error opening file " + fileName);
             System.exit(0);
         }
 
         readFile();
+    }
+
+    public Maze(int[][] maze, int x, int y, int v, int l) {
+        player = new Player(x, y, v, l);
+        yLen = maze.length;
+        xLen = maze[0].length;
+
+        this.maze = new int[yLen][xLen];
+        for (int i = 0; i < yLen; i++) {
+            for (int j = 0; j < xLen; j++) {
+                this.maze[i][j] = maze[i][j];
+            }
+        }
+        this.fileName = null;
     }
 
     public void readFile() {
@@ -37,6 +53,26 @@ public class Maze {
                 maze[i][j] = fileStream.nextInt();
             }
         }
+    }
+
+    public void saveFile() {
+        try {
+            PrintWriter outputFile = new PrintWriter(new FileOutputStream("../save/save.txt"));
+            outputFile.println(player.getX() + " " + player.getY() + " " + player.getVision() + " " + player.getLife());
+            outputFile.println(yLen + " " + xLen);
+            for (int i = 0; i < yLen; i++) {
+                for (int j = 0; j < xLen; j++) {
+                    outputFile.print(maze[i][j] + " ");
+                }
+                outputFile.println();
+            }
+            outputFile.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("[Error] Error opening file ");
+            System.exit(0);
+        }
+
+        
     }
 
     public void printMaze() {
@@ -138,24 +174,30 @@ public class Maze {
 
         if(SubGame.playSubgame()){
             Random generator = new Random();
-            int index = generator.nextInt(2) + 1;
+            int index = generator.nextInt(3) + 1;
             switch (index) {        // [chanhk-im]: case 1->life up, case 2->vision up
                 case 1:
                     player.lifeUp(1);
-                    System.out.println("Your life is increased by one");
+                    System.out.println("[Information] Your life is increased!!");
                     break;
                 case 2:
+                    player.lifeUp(2);
+                    System.out.println("[Information] Your life is increased 2!!");
+                    break;
+                case 3:
                     player.visionUp(1);
-                    System.out.println("Your vision is increased by one");
+                    System.out.println("[Information] Your vision is increased!!");
                     break;
                 default:
                     break;
             }
             // System.out.println("Your ~~~~ is increased by one");
-            System.out.println("Add some codes for increasing characteristic, here");
+            //System.out.println("Add some codes for increasing characteristic, here");
         }
         else{
             // other cases....
+            player.lifeDown(1);
+            System.out.println("[Information] Your life is decreased...");
         }
         maze[player.getX()][player.getY()] = 1;
     }

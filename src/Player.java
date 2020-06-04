@@ -13,6 +13,14 @@ public class Player {
         maxLife = 5;
     }
 
+    public Player(int x, int y, int v, int l) {
+        xPos = x;
+        yPos = y;
+        vision = v;
+        life = l;
+        maxLife = 5;
+    }
+
     public void moveRight() {
         xPos += 1;
     }
