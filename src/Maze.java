@@ -99,13 +99,13 @@ public class Maze {
     public void occurSubgame(){
 
         // Sub-game ouccrs only when the point of player is same with "2" in maze text file. isSubgmae method checks that.
-        if(!isSubgame(player, maze)){
+        if(!SubGame.isSubgame(player, maze)){
             return;
         }
 
         System.out.println("Sub-game event occurs!!!");
 
-        if(playSubgame()){
+        if(SubGame.playSubgame()){
             System.out.println("Your ~~~~ is increased by one");
             System.out.println("Add some codes for increasing characteristic, here");
         }
