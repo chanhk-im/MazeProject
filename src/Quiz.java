@@ -7,12 +7,12 @@ public class Quiz {
 	private static HashMap<Integer, HashMap<String, Integer>> answerOptionList = new HashMap<Integer, HashMap<String, Integer>>(4);
 	private static ArrayList<Integer> alreadyProvided = new ArrayList<Integer>(); // Save the already provided quiz's index.
 
+	/* // If you want to test this calss, just remove annotation
 	public static void main(String[] ars){
 		setQuiz();
-		for(int i=0;i<10 && isAvailable();i++){
-			playQuiz();
-		}
+		playQuiz();
 	}
+*/
 
 	public static void setQuiz() {
 		String fileName = "../Quiz/quiz.txt"; // quiz file's name should be 'quiz.txt'
@@ -54,15 +54,12 @@ public class Quiz {
 		catch(FileNotFoundException e) {System.out.println("File doesn't exist!");}
 	}
 
-	public static boolean isAvailable(){
-		if(quizList.size() == alreadyProvided.size()) { // When there is no left quiz to provide.
+	public static boolean playQuiz() {
+
+		if(!isAvailable()){
 			System.out.println("\nNo more left quiz!");
 			return false;
 		}
-		return true;
-	}
-
-	public static boolean playQuiz() {
 
 		Scanner kb = new Scanner(System.in);
 
@@ -90,6 +87,13 @@ public class Quiz {
 			return false;
 		}
 
+	}
+
+	private static boolean isAvailable(){
+		if(quizList.size() == alreadyProvided.size()) { // When there is no left quiz to provide.
+			return false;
+		}
+		return true;
 	}
 
 	private static int showQuiz() {
