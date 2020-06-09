@@ -74,3 +74,6 @@ This project is for java programming class in HGU. We develop a game, in which a
 7.	Testing the program finally and complete the project.
 
 ## Progress
+1. Implementing Maze, MazeGame, Player, and 3 games' classes
+2. Merge them for executing them as a program - introducing 'Subgame' calss
+3. Debug and Final commit
